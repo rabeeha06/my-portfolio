@@ -35,7 +35,7 @@
             --shadow-nav: 0 4px 30px rgba(0, 0, 0, 0.02);
 
             /* Brand Category Accents */
-            --icon-frontend: #0284c7;    /* High contrast variant */
+            --icon-frontend: #0284c7;    
             --icon-framework: #0369a1;
             --icon-backend: #3b5341;
             --icon-database: #b45309;
@@ -93,7 +93,6 @@
             transition: box-shadow 0.3s ease, background 0.3s ease;
         }
 
-        /* Triggered dynamically via Scroll JavaScript */
         nav.scrolled {
             box-shadow: var(--shadow-nav);
             background: rgba(255, 255, 255, 0.95);
@@ -178,7 +177,6 @@
                         border-color 0.4s ease;
         }
 
-        /* Standard Fill Button Interaction Rules */
         .btn-filled {
             background: var(--brand-olive);
             color: #FFFFFF;
@@ -199,7 +197,6 @@
         }
         .btn-filled:active { transform: translateY(0); }
 
-        /* Structural Outline Button Interaction Rules */
         .btn-outline {
             border: 1px solid #D6D0C4;
             color: var(--text-heading);
@@ -220,7 +217,6 @@
         }
         .btn-outline:active { transform: translateY(0); }
 
-        /* Unique Special Action Nav Trigger Override */
         .nav-btn {
             background: var(--brand-olive) !important;
             color: #FFFFFF !important;
@@ -240,7 +236,6 @@
             transform: translateY(-1px);
         }
 
-        /* Social Platform Rounded Interface Link Row */
         .social-row { display: flex; gap: 12px; }
 
         .social-circle {
@@ -264,7 +259,7 @@
         }
 
         /* ==========================================================================
-           5. HERO CONTENT STAGING
+           5. HERO CONTENT STAGING (INSTANT PORTRAIT CLUSTER)
            ========================================================================== */
         .hero-layout {
             display: grid;
@@ -320,7 +315,6 @@
             margin-bottom: 36px;
         }
 
-        /* Portrait Visual Cluster & Layer Positioning */
         .hero-right-stage {
             position: relative;
             display: flex;
@@ -330,13 +324,13 @@
             height: 450px;
         }
 
+        /* Static Graphic Assets: Animations Removed for Quick Processing */
         .organic-blob-bg {
             position: absolute;
             width: 330px; height: 330px;
             background: linear-gradient(135deg, #fcefe6 0%, #dbe7e3 50%, #e2ebd9 100%);
             border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%;
             z-index: 1;
-            animation: organicBlobFloat 8s ease-in-out infinite alternate;
         }
 
         .glowing-aura-ring {
@@ -345,7 +339,6 @@
             border: 1.5px dashed rgba(226, 158, 115, 0.4);
             border-radius: 50%;
             z-index: 2;
-            animation: slowRingRotate 24s linear infinite;
         }
 
         .floating-accent-circle {
@@ -356,7 +349,6 @@
             top: 60px; left: 25px;
             z-index: 4;
             box-shadow: 0 6px 16px rgba(222,132,76,0.2);
-            animation: decorativeFloat 5s ease-in-out infinite alternate;
         }
 
         .profile-frame-inner {
@@ -367,12 +359,6 @@
             z-index: 3;
             border: 10px solid #FFFFFF;
             box-shadow: 0 24px 54px rgba(96, 104, 83, 0.12);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        
-        .profile-frame-inner:hover {
-            transform: scale(1.03) translateY(-4px);
-            box-shadow: 0 32px 64px rgba(96, 104, 83, 0.18);
         }
 
         .profile-frame-inner img {
@@ -406,7 +392,7 @@
         }
 
         /* ==========================================================================
-           6. METRICS & COUNTER DISPLAY PANEL
+           6. METRICS DISPLAY PANEL (RESTORED ACCURATE TEXTUAL QUANTIFIERS)
            ========================================================================== */
         .metrics-layout {
             display: grid;
@@ -632,7 +618,7 @@
         .lane-tools .pill-box span:hover { border-color: var(--icon-tools); background: #FFFFFF; transform: translateY(-1px); }
 
         /* ==========================================================================
-           9. SELECTED PRODUCT WORK COLLECTIONS
+           9. SELECTED PRODUCT WORK COLLECTIONS (INSTANT RENDER WORK CLUSTERS)
            ========================================================================== */
         .projects-header-row {
             display: flex;
@@ -700,15 +686,10 @@
         .art-wayable { background: #ECEFEA; }
         .art-drywise { background: #F6F0FC; }
 
+        /* Zoom Properties Scrubbed Out Clean For Fast Performance Response */
         .project-display-img {
             width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        
-        /* Smooth Scale Zoom on Card Container Intersection Hover Trigger */
-        .project-model-card:hover .project-display-img {
-            transform: scale(1.06);
         }
 
         .project-model-card h3 {
@@ -885,25 +866,7 @@
             color: var(--text-body);
         }
 
-        /* ==========================================================================
-           12. CORE MOTION GRAPHICS KEYFRAMES (PERFORMANCE HARNESS)
-           ========================================================================== */
-        @keyframes organicBlobFloat {
-            0% { border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%; transform: translateY(0) scale(1); }
-            100% { border-radius: 46% 54% 48% 52% / 54% 46% 54% 46%; transform: translateY(-8px) scale(1.02); }
-        }
-
-        @keyframes decorativeFloat {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-12px); }
-        }
-
-        @keyframes slowRingRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Premium Micro-Staging Scroll Animation Reveal Logic */
+        /* Container Card Elements Reveal Staging Properties */
         .reveal-element {
             opacity: 0;
             transform: translateY(35px);
@@ -918,7 +881,7 @@
         }
 
         /* ==========================================================================
-           13. VIEWPORT SIZING RESPONSIVENESS & MEDIA QUERIES
+           12. VIEWPORT SIZING RESPONSIVENESS & MEDIA QUERIES
            ========================================================================== */
         @media (max-width: 1024px) {
             .projects-layout-grid { grid-template-columns: repeat(2, 1fr); }
@@ -941,12 +904,11 @@
             .profile-frame-inner { width: 230px; height: 230px; }
             
             nav { border-radius: 0; }
-            .nav-menu { display: none; } /* Kept structurally identical to clean setup lines */
+            .nav-menu { display: none; } 
         }
 
-        /* Accessibility Safe-Guard: Motion Disabling Standard */
         @media (prefers-reduced-motion: reduce) {
-            .reveal-element, .organic-blob-bg, .glowing-aura-ring, .floating-accent-circle, .project-model-card, .social-circle, .interactive-contact-item, .profile-frame-inner, .nav-menu a::after {
+            .reveal-element, .project-model-card, .social-circle, .interactive-contact-item, .profile-frame-inner, .nav-menu a::after {
                 animation: none !important;
                 transition: none !important;
                 transform: none !important;
@@ -1018,32 +980,33 @@
             </div>
         </section>
 
+        <!-- Metrics Section Card Frame (With Restored Static Indicators) -->
         <section class="layout-container card-frame metrics-layout reveal-element">
             <div class="metric-block">
                 <div class="metric-icon-box m-1" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div class="metric-details">
-                    <h4 class="count-up" data-target="2024">0</h4>
+                    <h4>2024</h4>
                     <p>Started Degree</p>
                 </div>
             </div>
             <div class="metric-block">
                 <div class="metric-icon-box m-2" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
                 <div class="metric-details">
-                    <h4 class="count-up" data-target="10">0</h4>
+                    <h4>10+</h4>
                     <p>Technical Skills</p>
                 </div>
             </div>
             <div class="metric-block">
                 <div class="metric-icon-box m-3" aria-hidden="true"><i class="fa-solid fa-laptop-code"></i></div>
                 <div class="metric-details">
-                    <h4 class="count-up" data-target="5">0</h4>
+                    <h4>5+</h4>
                     <p>Projects Built</p>
                 </div>
             </div>
             <div class="metric-block">
                 <div class="metric-icon-box m-4" aria-hidden="true"><i class="fa-solid fa-heart"></i></div>
                 <div class="metric-details">
-                    <h4><span class="count-up" data-target="100">0</span>%</h4>
+                    <h4>100%</h4>
                     <p>Learning Passion</p>
                 </div>
             </div>
@@ -1133,7 +1096,7 @@
                 
                 <div class="project-model-card">
                     <div class="project-art-stage art-raincheck">
-                        <img src="raincheck.png" alt="RainCheck platform preview display dashboard panel" class="project-display-img" loading="lazy">
+                        <img src="raincheck.png" alt="RainCheck platform preview display dashboard panel" class="project-display-img">
                     </div>
                     <h3>RainCheck</h3>
                     <p class="tagline-text">Weather Platform</p>
@@ -1149,7 +1112,7 @@
 
                 <div class="project-model-card">
                     <div class="project-art-stage art-sunlo">
-                        <img src="sunlo (4).png" alt="SunLo tracking layout map interface dashboard" class="project-display-img" loading="lazy">
+                        <img src="sunlo (4).png" alt="SunLo tracking layout map interface dashboard" class="project-display-img">
                     </div>
                     <h3>SunLo</h3>
                     <p class="tagline-text">Smart Bus Window Seat Finder</p>
@@ -1165,7 +1128,7 @@
 
                 <div class="project-model-card">
                     <div class="project-art-stage art-wayable">
-                        <img src="wayable.png" alt="WayAble Accessibility map preview routes" class="project-display-img" loading="lazy">
+                        <img src="wayable.png" alt="WayAble Accessibility map preview routes" class="project-display-img">
                     </div>
                     <h3>WayAble</h3>
                     <p class="tagline-text">Accessibility Explorer</p>
@@ -1181,7 +1144,7 @@
 
                 <div class="project-model-card">
                     <div class="project-art-stage art-drywise">
-                        <img src="drywise.png" alt="DryWise weather recommendations card diagnostic interface" class="project-display-img" loading="lazy">
+                        <img src="drywise.png" alt="DryWise weather recommendations card diagnostic interface" class="project-display-img">
                     </div>
                     <h3>DryWise</h3>
                     <p class="tagline-text">Weather-based Drying Assistant</p>
@@ -1283,7 +1246,7 @@
             };
             window.addEventListener("scroll", trackActiveSections, { passive: true });
 
-            // --- C. Staged Scroll Reveal Engine (Intersection Observer) ---
+            // --- C. Staged Scroll Reveal Engine (Intersection Observer for Card Enclosures) ---
             const revealOptions = {
                 threshold: 0.05,
                 rootMargin: "0px 0px -40px 0px"
@@ -1293,13 +1256,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("revealed");
-                        
-                        // Fire specialized count-up logic if the metrics panel has entered viewport
-                        if (entry.target.classList.contains("metrics-layout")) {
-                            triggerMetricsCounter(entry.target);
-                        }
-                        
-                        observer.unobserve(entry.target); // Run animations once only
+                        observer.unobserve(entry.target); 
                     }
                 });
             }, revealOptions);
@@ -1308,39 +1265,7 @@
                 revealObserver.observe(element);
             });
 
-            // --- D. Premium Dynamic Fluid Counter Engine (Stat Panels) ---
-            const triggerMetricsCounter = (parentPanel) => {
-                const counterElements = parentPanel.querySelectorAll(".count-up");
-                
-                counterElements.forEach(counter => {
-                    const targetValue = parseInt(counter.getAttribute("data-target"), 10);
-                    let startingValue = 0;
-                    
-                    // Tailor speed parameters based on data size ranges
-                    const runtimeDuration = targetValue > 1000 ? 1500 : 1000; 
-                    const initialTime = performance.now();
-
-                    const runCountAnimation = (currentTime) => {
-                        const elapsedDuration = currentTime - initialTime;
-                        const progressRatio = Math.min(elapsedDuration / runtimeDuration, 1);
-                        
-                        // Premium Ease-Out Quintic Function for a smooth tail finish
-                        const easeOutProgress = 1 - Math.pow(1 - progressRatio, 5);
-                        
-                        const calculatedOutput = Math.floor(easeOutProgress * (targetValue - startingValue) + startingValue);
-                        counter.textContent = calculatedOutput;
-
-                        if (progressRatio < 1) {
-                            requestAnimationFrame(runCountAnimation);
-                        } else {
-                            counter.textContent = targetValue; // Hard-lock final target validation
-                        }
-                    };
-                    requestAnimationFrame(runCountAnimation);
-                });
-            };
-
-            // --- E. Micro-Interactions: Active Mechanical Button Press Animations ---
+            // --- D. Micro-Interactions: Tactile Mechanical Button Press Animations ---
             const clickInteractiveElements = document.querySelectorAll(".btn-filled, .btn-outline, .social-circle, .interactive-contact-item");
             clickInteractiveElements.forEach(element => {
                 element.addEventListener("mousedown", () => {

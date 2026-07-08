@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,40 +11,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ================= REFERENCE THEME DESIGN COLORS ================= */
+        /* ==========================================================================
+           1. CORE DESIGN VARIABLES & THEMING
+           ========================================================================== */
         :root {
-           --bg-base: #FAF8F5;          /* Exact warm off-white from your design image */
-    /* --bg-base: #F5EFE6; */    /* Alternative: A slightly deeper, richer linen tone */
-    
-    --surface-card: #FFFFFF;     
-    --text-heading: #1C2321;     
-    --text-body: #606662;        
-    
-    /* Cleaned up duplicate border variable here: */
-    --border-light: #DDD9CF;     
-    
-    --brand-clay: #E29E73;       
-    --brand-olive: #606853;      
-    --brand-olive-hover: #4A513F;
-    
-    --font-serif: 'Instrument Serif', serif;
-    --font-sans: 'Inter', sans-serif;
-    --radius-main: 24px;
-    --shadow-subtle: 0 12px 44px rgba(160, 150, 135, 0.06);
+            --bg-base: #FAF8F5;          
+            --surface-card: #FFFFFF;     
+            --text-heading: #1F1F1F;     /* Enhanced Contrast for Accessibility */
+            --text-body: #5F5F5F;        /* Darker gray for a highly readable baseline */
+            --border-light: #E6E2DA;     /* Standardized structural border */
+            
+            --brand-clay: #E29E73;       
+            --brand-olive: #606853;      
+            --brand-olive-hover: #4A513F;
+            
+            --font-serif: 'Instrument Serif', serif;
+            --font-sans: 'Inter', sans-serif;
+            --radius-main: 24px;
+            
+            /* Premium Depth Shadows */
+            --shadow-subtle: 0 12px 44px rgba(160, 150, 135, 0.06);
+            --shadow-hover: 0 24px 48px rgba(110, 100, 85, 0.12);
+            --shadow-nav: 0 4px 30px rgba(0, 0, 0, 0.02);
 
-            /* Unique Brand Colors for Matrix System */
-            --icon-frontend: #38bdf8;
-            --icon-framework: #0284c7;
-            --icon-backend: #4e745a;
-            --icon-database: #d97706;
-            --icon-tools: #ec4899;
+            /* Brand Category Accents */
+            --icon-frontend: #0284c7;    /* High contrast variant */
+            --icon-framework: #0369a1;
+            --icon-backend: #3b5341;
+            --icon-database: #b45309;
+            --icon-tools: #db2777;
 
-            /* Bright Vibrant Contact Identities */
-            --c-email: #ef4444;
-            --c-location: #3b82f6;
-            --c-github: #6366f1;
+            --c-email: #dc2626;
+            --c-location: #2563eb;
+            --c-github: #4f46e5;
+            
+            /* Hardware Acceleration Layer */
+            --will-change-perf: transform, opacity;
         }
 
+        /* ==========================================================================
+           2. GLOBAL RESET & ACCESSIBILITY FOCUS
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -52,33 +60,49 @@
 
         html {
             scroll-behavior: smooth;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
             background-color: var(--bg-base);
             color: var(--text-body);
             font-family: var(--font-sans);
-            -webkit-font-smoothing: antialiased;
-            padding: 140px 24px 60px 24px; /* Optimized padding for full-bleed navigation mount */
+            padding: 140px 24px 60px 24px;
+            overflow-x: hidden;
         }
 
-        /* ================= FLUSH FULL-WIDTH SQUARE NAVIGATION (HIDDEN EDGES) ================= */
+        /* Standardized Premium Keyboard Focus State */
+        *:focus-visible {
+            outline: 2px dashed var(--brand-clay);
+            outline-offset: 4px;
+        }
+
+        /* ==========================================================================
+           3. FULL-WIDTH MOUNTED NAVIGATION
+           ========================================================================== */
         nav {
             position: fixed;
-            top: 0; left: 0; right: 0; /* Extends right to screen limits to avoid floating edges */
+            top: 0; left: 0; right: 0;
             background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
-            border-radius: 0px; /* Sharp professional square edges */
             z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+            transition: box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        /* Triggered dynamically via Scroll JavaScript */
+        nav.scrolled {
+            box-shadow: var(--shadow-nav);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .nav-inner {
-            max-width: 1200px; /* Perfectly bounds interior tracking limits */
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 16px 24px;
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -86,10 +110,11 @@
 
         .nav-logo {
             font-family: var(--font-serif);
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: var(--text-heading);
             text-decoration: none;
+            letter-spacing: -0.01em;
         }
 
         .nav-logo span { color: var(--brand-clay); }
@@ -103,35 +128,42 @@
 
         .nav-menu a {
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 500;
             color: var(--text-heading);
-            transition: color 0.2s;
+            position: relative;
+            padding: 4px 0;
+            transition: color 0.25s ease;
         }
 
-        .nav-menu a:hover, .nav-menu a.active { color: var(--brand-clay); }
-
-        .nav-btn {
-            background: var(--brand-olive);
-            color: #FFFFFF !important;
-             background: var(--brand-olive);
-            color: #FFFFFF;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 0.92rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s, transform 0.2s;
-            
+        /* Premium Micro-animated Underline Marker */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 1.5px;
+            background-color: var(--brand-clay);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .nav-btn:hover { background: var(--brand-olive-hover); }
 
-        /* ================= CARDS PROPORTIONED TO MATCH INTERIOR NAVBAR LOGIC ================= */
+        .nav-menu a:hover::after, 
+        .nav-menu a.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-menu a:hover, 
+        .nav-menu a.active { 
+            color: var(--brand-clay); 
+        }
+
+        /* ==========================================================================
+           4. SHARED STRUCTURAL UTILITIES & BUTTONS
+           ========================================================================== */
         .layout-container {
-            max-width: 1200px; /* Aligns side-to-side perfectly with content lines in nav bar */
+            max-width: 1200px;
             margin: 0 auto 32px auto;
         }
 
@@ -141,9 +173,99 @@
             border-radius: var(--radius-main);
             box-shadow: var(--shadow-subtle);
             padding: 40px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        border-color 0.4s ease;
         }
 
-        /* ================= HERO CONTENT BLOCK ================= */
+        /* Standard Fill Button Interaction Rules */
+        .btn-filled {
+            background: var(--brand-olive);
+            color: #FFFFFF;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.25s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+        }
+        .btn-filled:hover { 
+            background: var(--brand-olive-hover); 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(96, 104, 83, 0.15);
+        }
+        .btn-filled:active { transform: translateY(0); }
+
+        /* Structural Outline Button Interaction Rules */
+        .btn-outline {
+            border: 1px solid #D6D0C4;
+            color: var(--text-heading);
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .btn-outline:hover { 
+            background: #FAF9F5; 
+            border-color: var(--text-heading);
+            transform: translateY(-2px);
+        }
+        .btn-outline:active { transform: translateY(0); }
+
+        /* Unique Special Action Nav Trigger Override */
+        .nav-btn {
+            background: var(--brand-olive) !important;
+            color: #FFFFFF !important;
+            padding: 10px 24px !important;
+            border-radius: 30px;
+            font-size: 0.88rem !important;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.25s ease, transform 0.2s ease !important;
+        }
+        .nav-btn::after { display: none !important; }
+        .nav-btn:hover { 
+            background: var(--brand-olive-hover) !important; 
+            transform: translateY(-1px);
+        }
+
+        /* Social Platform Rounded Interface Link Row */
+        .social-row { display: flex; gap: 12px; }
+
+        .social-circle {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: #F7F5F0;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-heading);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+        .social-circle:hover {
+            transform: translateY(-4px) scale(1.05);
+            background: var(--brand-clay);
+            color: #FFFFFF;
+            border-color: var(--brand-clay);
+        }
+
+        /* ==========================================================================
+           5. HERO CONTENT STAGING
+           ========================================================================== */
         .hero-layout {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -156,103 +278,49 @@
 
         .hero-left .tagline {
             color: var(--brand-clay);
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.14em;
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .hero-left h1 {
             font-family: var(--font-serif);
             font-size: clamp(3.2rem, 7vw, 4.8rem);
             font-weight: 400;
-            line-height: 1.05;
+            line-height: 1.1;
             color: var(--text-heading);
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
         }
 
         .hero-left .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 500;
-            color: var(--text-body);
+            color: var(--text-heading);
             margin-bottom: 24px;
             line-height: 1.5;
         }
 
         .hero-left .bio {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            line-height: 1.7;
             max-width: 500px;
-            margin-bottom: 32px;
+            margin-bottom: 36px;
         }
 
         .action-row {
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 32px;
+            margin-bottom: 36px;
         }
 
-        .btn-filled {
-            background: var(--brand-olive);
-            color: #FFFFFF;
-            padding: 14px 28px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
-        }
-        .btn-filled:hover { background: var(--brand-olive-hover); }
-
-        .btn-outline {
-            border: 1px solid #D6D0C4;
-            color: var(--text-heading);
-            padding: 14px 28px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
-        }
-        .btn-outline:hover { background: #FAF9F5; }
-
-        .social-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .social-circle {
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            background: #F7F5F0;
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-heading);
-            text-decoration: none;
-            font-size: 1.05rem;
-            transition: transform 0.2s, background 0.2s, color 0.2s;
-        }
-        .social-circle:hover {
-            transform: translateY(-2px);
-            background: var(--brand-clay);
-            color: white;
-            border-color: var(--brand-clay);
-        }
-
-        /* ================= PORTRAIT STAGE GRAPHICS ================= */
+        /* Portrait Visual Cluster & Layer Positioning */
         .hero-right-stage {
             position: relative;
             display: flex;
@@ -264,55 +332,57 @@
 
         .organic-blob-bg {
             position: absolute;
-            width: 330px;
-            height: 330px;
+            width: 330px; height: 330px;
             background: linear-gradient(135deg, #fcefe6 0%, #dbe7e3 50%, #e2ebd9 100%);
             border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%;
             z-index: 1;
+            animation: organicBlobFloat 8s ease-in-out infinite alternate;
         }
 
         .glowing-aura-ring {
             position: absolute;
-            width: 340px;
-            height: 340px;
-            border: 1.5px dashed rgba(226, 158, 115, 0.35);
+            width: 340px; height: 340px;
+            border: 1.5px dashed rgba(226, 158, 115, 0.4);
             border-radius: 50%;
             z-index: 2;
+            animation: slowRingRotate 24s linear infinite;
         }
 
         .floating-accent-circle {
             position: absolute;
-            width: 28px;
-            height: 28px;
+            width: 28px; height: 28px;
             background: radial-gradient(circle at 30% 30%, #f7cdb2, var(--brand-clay));
             border-radius: 50%;
-            top: 60px;
-            left: 25px;
+            top: 60px; left: 25px;
             z-index: 4;
             box-shadow: 0 6px 16px rgba(222,132,76,0.2);
+            animation: decorativeFloat 5s ease-in-out infinite alternate;
         }
 
         .profile-frame-inner {
-            width: 275px;
-            height: 275px;
+            width: 275px; height: 275px;
             border-radius: 50%;
             overflow: hidden;
             position: relative;
             z-index: 3;
             border: 10px solid #FFFFFF;
             box-shadow: 0 24px 54px rgba(96, 104, 83, 0.12);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .profile-frame-inner:hover {
+            transform: scale(1.03) translateY(-4px);
+            box-shadow: 0 32px 64px rgba(96, 104, 83, 0.18);
         }
 
         .profile-frame-inner img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
         }
 
         .decor-dots {
             position: absolute;
-            top: 20px;
-            right: -10px;
+            top: 20px; right: -10px;
             display: grid;
             grid-template-columns: repeat(5, 6px);
             gap: 12px;
@@ -327,21 +397,21 @@
 
         .leaf-drawing {
             position: absolute;
-            width: 150px;
-            height: 150px;
-            bottom: 10px;
-            right: 10px;
+            width: 150px; height: 150px;
+            bottom: 10px; right: 10px;
             z-index: 5;
             opacity: 0.85;
             transform: rotate(6deg);
             pointer-events: none;
         }
 
-        /* ================= METRICS BLOCK ================= */
+        /* ==========================================================================
+           6. METRICS & COUNTER DISPLAY PANEL
+           ========================================================================== */
         .metrics-layout {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            padding: 32px;
+            padding: 36px 20px;
             align-items: center;
         }
 
@@ -355,27 +425,39 @@
         .metric-block:last-child { border-right: none; }
 
         .metric-icon-box {
-            width: 52px; height: 52px;
+            width: 54px; height: 54px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .m-1 { background: #ECEFEA; color: #526E59; }
-        .m-2 { background: #FDF3EB; color: #D98357; }
-        .m-3 { background: #EEF4F7; color: #5185A9; }
-        .m-4 { background: #FBF1F1; color: #C95757; }
+        .metric-block:hover .metric-icon-box {
+            transform: scale(1.1) rotate(8deg);
+        }
+        
+        .m-1 { background: #ECEFEA; color: #445c4a; }
+        .m-2 { background: #FDF3EB; color: #c26738; }
+        .m-3 { background: #EEF4F7; color: #3b6b8c; }
+        .m-4 { background: #FBF1F1; color: #b03f3f; }
 
         .metric-details h4 {
-            font-size: 1.45rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--text-heading);
             line-height: 1.2;
         }
-        .metric-details p { font-size: 0.86rem; font-weight: 500; }
+        .metric-details p { 
+            font-size: 0.88rem; 
+            font-weight: 500; 
+            color: var(--text-body);
+            margin-top: 2px;
+        }
 
-        /* ================= ABOUT ME ================= */
+        /* ==========================================================================
+           7. ABOUT PROFILE SECTION
+           ========================================================================== */
         .about-layout {
             display: grid;
             grid-template-columns: 1.15fr 0.85fr;
@@ -390,8 +472,7 @@
         }
 
         .about-avatar-decor {
-            width: 110px;
-            height: 140px;
+            width: 110px; height: 140px;
             background: #F7F5F0;
             border-radius: 55px 55px 16px 16px;
             display: flex;
@@ -413,24 +494,22 @@
         .about-avatar-decor .avatar-leaves {
             position: absolute;
             bottom: 0;
-            width: 100%;
-            height: 50px;
+            width: 100%; height: 50px;
             opacity: 0.6;
             z-index: 1;
         }
 
         .about-text-content h2 {
-            font-family: var(--font-sans);
             font-size: 2.2rem;
             color: var(--text-heading);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             font-weight: 600;
             letter-spacing: -0.02em;
         }
 
         .about-text-content p {
-            font-size: 0.98rem;
-            line-height: 1.65;
+            font-size: 1.05rem;
+            line-height: 1.7;
             color: var(--text-body);
         }
 
@@ -457,24 +536,31 @@
             color: var(--brand-olive);
             font-size: 1.1rem;
             flex-shrink: 0;
+            transition: background 0.25s, color 0.25s, border-color 0.25s;
+        }
+        .info-cell:hover .info-cell-icon {
+            background: var(--brand-clay);
+            color: #FFFFFF;
+            border-color: var(--brand-clay);
         }
 
         .info-cell-content h5 {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             font-weight: 600;
             color: var(--text-heading);
             margin-bottom: 4px;
         }
         
         .info-cell-content p { 
-            font-size: 0.88rem; 
+            font-size: 0.9rem; 
             line-height: 1.5; 
             color: var(--text-body);
         }
 
-        /* ================= SKILLS ROW/COLUMN LANES ================= */
+        /* ==========================================================================
+           8. TECHNOLOGY METRIC MATRIX (SKILLS)
+           ========================================================================== */
         .skills-section-title {
-            font-family: var(--font-sans);
             font-size: 2.2rem;
             color: var(--text-heading);
             font-weight: 600;
@@ -492,16 +578,17 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            padding:  16px;
-            transition: backgroun 0.2 secs ease;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: 16px;
             border-right: 1px solid var(--border-light);
+            transition: background-color 0.3s ease;
         }
         .skill-group-lane:first-child { padding-left: 0; }
         .skill-group-lane:last-child { border-right: none; padding-right: 0; }
+        .skill-group-lane:hover { background-color: #FAF9F6; }
 
         .skill-lane-title {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             font-weight: 600;
             color: var(--text-heading);
             display: flex;
@@ -528,32 +615,33 @@
         }
 
         .pill-box span {
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             background: #F7F6F2;
             border: 1px solid #EAE6DD;
             padding: 6px 16px;
             border-radius: 20px;
             color: var(--text-heading);
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        .lane-frontend .pill-box span:hover { border-color: var(--icon-frontend); background: #FFFFFF; }
-        .lane-framework .pill-box span:hover { border-color: var(--icon-framework); background: #FFFFFF; }
-        .lane-backend .pill-box span:hover { border-color: var(--icon-backend); background: #FFFFFF; }
-        .lane-database .pill-box span:hover { border-color: var(--icon-database); background: #FFFFFF; }
-        .lane-tools .pill-box span:hover { border-color: var(--icon-tools); background: #FFFFFF; }
+        .lane-frontend .pill-box span:hover { border-color: var(--icon-frontend); background: #FFFFFF; transform: translateY(-1px); }
+        .lane-framework .pill-box span:hover { border-color: var(--icon-framework); background: #FFFFFF; transform: translateY(-1px); }
+        .lane-backend .pill-box span:hover { border-color: var(--icon-backend); background: #FFFFFF; transform: translateY(-1px); }
+        .lane-database .pill-box span:hover { border-color: var(--icon-database); background: #FFFFFF; transform: translateY(-1px); }
+        .lane-tools .pill-box span:hover { border-color: var(--icon-tools); background: #FFFFFF; transform: translateY(-1px); }
 
-        /* ================= SELECTED WORK COLLECTIONS ================= */
+        /* ==========================================================================
+           9. SELECTED PRODUCT WORK COLLECTIONS
+           ========================================================================== */
         .projects-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
 
         .projects-header-row h2 {
-            font-family: var(--font-sans);
             font-size: 2.2rem;
             color: var(--text-heading);
             font-weight: 600;
@@ -561,13 +649,14 @@
         }
 
         .git-explore-link {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-heading);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: color 0.25s ease;
         }
         .git-explore-link:hover { color: var(--brand-clay); }
 
@@ -584,64 +673,63 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 20px rgba(140, 130, 115, 0.08),
-                        0 1px 3px rgba(0, 0, 0, 0.02);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(140, 130, 115, 0.04);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        border-color 0.4s ease;
         }
+        
         .project-model-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 38px rgba(110, 100, 85, 0.15);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
             border-color: var(--brand-clay);
         }
 
         .project-art-stage {
-            /* aspect-ratio: 4/5; */
             position: relative;
             width: 100%;
-            max-height: 150px;
+            height: 150px;
             border-radius: 14px;
-            display: flex;
-            /* align-items: center;
-            justify-content: center;
-            margin-bottom: 16px; */
-            /* padding: 0x; */
-            /* font-size: 2.8rem; */
             overflow: hidden; 
-            border: 1px solid rgba(0, 0, 0, 0.05);/* Ensures raw images conform accurately to the border radius bounds */
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
         }
-        .art-raincheck { background: #EEF4F8; color: #4F80A6; }
-        .art-sunlo { background: #FDF3EB; color: #D47E53; }
-        .art-wayable { background: #ECEFEA; color: #4E745A; }
-        .art-drywise { background: #F6F0FC; color: #8F65C6; }
+        
+        .art-raincheck { background: #EEF4F8; }
+        .art-sunlo { background: #FDF3EB; }
+        .art-wayable { background: #ECEFEA; }
+        .art-drywise { background: #F6F0FC; }
 
-        /* Bounding element rule ensuring real images scale down uniformly to frame lines */
         .project-display-img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            /* aspect-ratio: 1/1; */
-            /* border-radius: 12px; */
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        /* Smooth Scale Zoom on Card Container Intersection Hover Trigger */
+        .project-model-card:hover .project-display-img {
+            transform: scale(1.06);
         }
 
         .project-model-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: var(--text-heading);
             margin-bottom: 4px;
             font-weight: 600;
         }
 
         .project-model-card .tagline-text {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 600;
             color: var(--text-body);
             margin-bottom: 12px;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         .project-model-card .desc-text {
-            font-size: 0.85rem;
-            line-height: 1.5;
-            margin-bottom: 16px;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
             color: var(--text-body);
         }
 
@@ -649,11 +737,11 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             margin-top: auto;
         }
         .project-stack-pills span {
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             background: #F7F6F2;
             padding: 4px 10px;
             border-radius: 6px;
@@ -666,76 +754,60 @@
             display: flex;
             justify-content: space-between;
             border-top: 1px solid var(--border-light);
-            padding-top: 12px;
+            padding-top: 14px;
         }
         .card-footer-links a {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--text-heading);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 4px;
+            transition: color 0.2s ease;
         }
         .card-footer-links a:hover { color: var(--brand-clay); }
 
-        /* ================= COMPACT WHITE THEME CONTACT CARD ================= */
+        /* ==========================================================================
+           10. INTERACTIVE SYSTEM CONTACT INTERFACES
+           ========================================================================== */
         .footer-layout-card {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 56px;
             align-items: center;
             background: #FFFFFF;
-            padding: 32px 40px;
-            border: 1px solid #E0DCD3 ;
+            padding: 40px;
+            border: 1px solid #E0DCD3;
             border-radius: var(--radius-main);
-            box-shadow: 0 4px 20px rgba(140, 130, 115, 0.08);
+            box-shadow: 0 4px 20px rgba(140, 130, 115, 0.04);
         }
 
         .contact-left .section-tag {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.16em;
             color: var(--brand-clay);
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
         }
 
         .contact-left h2 {
-            font-family: var(--font-sans);
-            font-size: clamp(2.2rem, 3.5vw, 2.5rem);
+            font-size: clamp(2.2rem, 3.5vw, 2.6rem);
             color: var(--text-heading);
             font-weight: 700;
             letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            line-height: 1.15;
+            margin-bottom: 14px;
+            line-height: 1.2;
         }
 
         .contact-left p {
-            font-size: 0.95rem;
+            font-size: 1.02rem;
             color: var(--text-body);
-            line-height: 1.5;
-            margin-bottom: 24px;
+            line-height: 1.6;
+            margin-bottom: 28px;
             max-width: 440px;
-        }
-
-        .contact-action-btn {
-            background: var(--brand-olive);
-            color: #FFFFFF;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 0.92rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .contact-action-btn:hover {
-            background: var(--brand-olive-hover);
-            transform: translateY(-2px);
         }
 
         .contact-grid-panel {
@@ -753,12 +825,14 @@
             padding: 14px 20px;
             border-radius: 16px;
             text-decoration: none;
-            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                        box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                        border-color 0.25s ease, 
+                        background-color 0.25s ease;
         }
 
         .contact-icon-wrapper {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -766,6 +840,7 @@
             font-size: 1.1rem;
             color: #FFFFFF;
             flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
 
         .item-email .contact-icon-wrapper { background: var(--c-email); }
@@ -773,37 +848,78 @@
         .item-github .contact-icon-wrapper { background: var(--c-github); }
 
         .contact-item-details h6 {
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #9A958B;
+            letter-spacing: 0.1em;
+            color: #8C877E;
             margin-bottom: 2px;
         }
 
         .contact-item-details p {
-            font-size: 0.92rem;
+            font-size: 0.96rem;
             font-weight: 600;
             color: var(--text-heading);
         }
 
         .interactive-contact-item:hover {
-            transform: translateX(6px);
-            background: #FFFFFF;
+            transform: translateX(8px);
+            background-color: #FFFFFF;
             border-color: var(--brand-clay);
-            box-shadow: 0 6px 16px rgba(140, 130, 115, 0.12);
+            box-shadow: 0 8px 24px rgba(140, 130, 115, 0.1);
+        }
+        
+        .interactive-contact-item:hover .contact-icon-wrapper {
+            transform: scale(1.05);
         }
 
+        /* ==========================================================================
+           11. SYSTEM TERMINAL FOOTER LINE
+           ========================================================================== */
         .footer-sub-text {
             border-top: 1px solid var(--border-light);
             margin-top: 40px;
-            padding-top: 16px;
+            padding-top: 20px;
             display: flex;
             justify-content: space-between;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-body);
         }
 
-        /* ================= VIEWPORT SIZING RESPONSIVENESS ================= */
+        /* ==========================================================================
+           12. CORE MOTION GRAPHICS KEYFRAMES (PERFORMANCE HARNESS)
+           ========================================================================== */
+        @keyframes organicBlobFloat {
+            0% { border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%; transform: translateY(0) scale(1); }
+            100% { border-radius: 46% 54% 48% 52% / 54% 46% 54% 46%; transform: translateY(-8px) scale(1.02); }
+        }
+
+        @keyframes decorativeFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+
+        @keyframes slowRingRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Premium Micro-Staging Scroll Animation Reveal Logic */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(35px);
+            will-change: var(--will-change-perf);
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal-element.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           13. VIEWPORT SIZING RESPONSIVENESS & MEDIA QUERIES
+           ========================================================================== */
         @media (max-width: 1024px) {
             .projects-layout-grid { grid-template-columns: repeat(2, 1fr); }
             .metrics-layout { grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -813,38 +929,50 @@
         }
 
         @media (max-width: 768px) {
-            body { padding-top: 110px; }
-            .hero-layout, .about-layout, .footer-layout-card { grid-template-columns: 1fr; padding: 32px; }
+            body { padding-top: 110px; padding-left: 16px; padding-right: 16px; }
+            .hero-layout, .about-layout, .footer-layout-card { grid-template-columns: 1fr; padding: 32px 24px; }
             .about-right-grid { grid-template-columns: 1fr; }
             .projects-layout-grid { grid-template-columns: 1fr; }
-            .metrics-layout { grid-template-columns: 1fr; }
+            .metrics-layout { grid-template-columns: 1fr; padding: 24px 12px; }
             .skills-row-container { grid-template-columns: 1fr; gap: 24px; }
-            .skill-group-lane { border-right: none; padding: 0; }
-            .hero-right-stage { height: 420px; }
-            .organic-blob-bg { width: 320px; height: 320px; }
+            .hero-right-stage { height: 380px; }
+            .organic-blob-bg { width: 280px; height: 280px; }
             .glowing-aura-ring { width: 290px; height: 290px; }
-            .profile-frame-inner { width: 250px; height: 250px; }
+            .profile-frame-inner { width: 230px; height: 230px; }
+            
+            nav { border-radius: 0; }
+            .nav-menu { display: none; } /* Kept structurally identical to clean setup lines */
+        }
+
+        /* Accessibility Safe-Guard: Motion Disabling Standard */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-element, .organic-blob-bg, .glowing-aura-ring, .floating-accent-circle, .project-model-card, .social-circle, .interactive-contact-item, .profile-frame-inner, .nav-menu a::after {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav>
+    <nav id="mainNavbar">
         <div class="nav-inner">
-            <a href="#" class="nav-logo">RABEEHA<span></span></a>
+            <a href="#" class="nav-logo" aria-label="Rabeeha Portfolio Home">RABEEHA<span>.</span></a>
             <ul id="navLinks" class="nav-menu">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact" class="nav-btn">Let's Talk <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-btn nav-link">Let's Talk <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;" aria-hidden="true"></i></a></li>
             </ul>
         </div>
     </nav>
 
     <main>
         
-        <section id="home" class="layout-container card-frame hero-layout">
+        <section id="home" class="layout-container card-frame hero-layout reveal-element">
             <div class="hero-left">
                 <span class="tagline">Hello, I'm ✦</span>
                 <h1>Fathima<br>Rabeeha M</h1>
@@ -853,17 +981,17 @@
                     I build accessible, responsive and meaningful web experiences that solve real-world problems and create impact.
                 </p>
                 <div class="action-row">
-                    <a href="#projects" class="btn-filled">View My Work <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i></a>
-                    <a href="#contact" class="btn-outline">Contact Me <i class="fa-regular fa-envelope"></i></a>
+                    <a href="#projects" class="btn-filled">View My Work <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;" aria-hidden="true"></i></a>
+                    <a href="#contact" class="btn-outline">Contact Me <i class="fa-regular fa-envelope" aria-hidden="true"></i></a>
                 </div>
                 <div class="social-row">
-                    <a href="https://github.com/rabeeha06" target="_blank" class="social-circle"><i class="fa-brands fa-github"></i></a>
-                    <a href="mailto:rabeehaam@gmail.com" class="social-circle"><i class="fa-regular fa-envelope"></i></a>
+                    <a href="https://github.com/rabeeha06" target="_blank" rel="noopener" class="social-circle" aria-label="GitHub Developer Profile"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:rabeehaam@gmail.com" class="social-circle" aria-label="Send direct Email inquiry"><i class="fa-regular fa-envelope"></i></a>
                 </div>
             </div>
             
             <div class="hero-right-stage">
-                <div class="decor-dots">
+                <div class="decor-dots" aria-hidden="true">
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
@@ -871,11 +999,11 @@
                     <span></span><span></span><span></span><span></span><span></span>
                 </div>
                 
-                <div class="organic-blob-bg"></div>
-                <div class="glowing-aura-ring"></div>
-                <div class="floating-accent-circle"></div>
+                <div class="organic-blob-bg" aria-hidden="true"></div>
+                <div class="glowing-aura-ring" aria-hidden="true"></div>
+                <div class="floating-accent-circle" aria-hidden="true"></div>
                 
-                <div class="leaf-drawing">
+                <div class="leaf-drawing" aria-hidden="true">
                     <svg viewBox="0 0 100 100" fill="none" stroke="#606853" stroke-width="1.2" stroke-linecap="round">
                         <path d="M20,90 Q40,60 80,20" />
                         <path d="M40,60 Q30,50 35,42 Q45,45 50,53" />
@@ -885,45 +1013,45 @@
                 </div>
 
                 <div class="profile-frame-inner">
-                    <img src="profile.png" alt="Fathima Rabeeha M.">
+                    <img src="profile.png" alt="Portrait frame snapshot of Fathima Rabeeha M.">
                 </div>
             </div>
         </section>
 
-        <section class="layout-container card-frame metrics-layout">
+        <section class="layout-container card-frame metrics-layout reveal-element">
             <div class="metric-block">
-                <div class="metric-icon-box m-1"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="metric-icon-box m-1" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div class="metric-details">
-                    <h4>2024</h4>
+                    <h4 class="count-up" data-target="2024">0</h4>
                     <p>Started Degree</p>
                 </div>
             </div>
             <div class="metric-block">
-                <div class="metric-icon-box m-2"><i class="fa-solid fa-code"></i></div>
+                <div class="metric-icon-box m-2" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
                 <div class="metric-details">
-                    <h4>10+</h4>
+                    <h4 class="count-up" data-target="10">0</h4>
                     <p>Technical Skills</p>
                 </div>
             </div>
             <div class="metric-block">
-                <div class="metric-icon-box m-3"><i class="fa-solid fa-laptop-code"></i></div>
+                <div class="metric-icon-box m-3" aria-hidden="true"><i class="fa-solid fa-laptop-code"></i></div>
                 <div class="metric-details">
-                    <h4>5+</h4>
+                    <h4 class="count-up" data-target="5">0</h4>
                     <p>Projects Built</p>
                 </div>
             </div>
             <div class="metric-block">
-                <div class="metric-icon-box m-4"><i class="fa-solid fa-heart"></i></div>
+                <div class="metric-icon-box m-4" aria-hidden="true"><i class="fa-solid fa-heart"></i></div>
                 <div class="metric-details">
-                    <h4>100%</h4>
+                    <h4><span class="count-up" data-target="100">0</span>%</h4>
                     <p>Learning Passion</p>
                 </div>
             </div>
         </section>
 
-        <section id="about" class="layout-container card-frame about-layout">
+        <section id="about" class="layout-container card-frame about-layout reveal-element">
             <div class="about-left-text">
-                <div class="about-avatar-decor">
+                <div class="about-avatar-decor" aria-hidden="true">
                     <i class="fa-regular fa-user avatar-graphic"></i>
                     <svg class="avatar-leaves" viewBox="0 0 100 50" fill="none" stroke="#D3C9B9" stroke-width="1">
                         <path d="M10,50 Q30,20 50,40 T90,20" />
@@ -939,28 +1067,28 @@
             
             <div class="about-right-grid">
                 <div class="info-cell">
-                    <div class="info-cell-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="info-cell-icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
                     <div class="info-cell-content">
                         <h5>Education</h5>
                         <p>B.Sc. Computer Science<br>(2024 – 2028)</p>
                     </div>
                 </div>
                 <div class="info-cell">
-                    <div class="info-cell-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="info-cell-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
                     <div class="info-cell-content">
                         <h5>Location</h5>
                         <p>Kerala, India</p>
                     </div>
                 </div>
                 <div class="info-cell">
-                    <div class="info-cell-icon"><i class="fa-regular fa-heart"></i></div>
+                    <div class="info-cell-icon" aria-hidden="true"><i class="fa-regular fa-heart"></i></div>
                     <div class="info-cell-content">
                         <h5>Interests</h5>
                         <p>Web Dev, UI/UX,<br>Problem Solving</p>
                     </div>
                 </div>
                 <div class="info-cell">
-                    <div class="info-cell-icon"><i class="fa-regular fa-star"></i></div>
+                    <div class="info-cell-icon" aria-hidden="true"><i class="fa-regular fa-star"></i></div>
                     <div class="info-cell-content">
                         <h5>Strengths</h5>
                         <p>Consistency, Creativity,<br>Adaptability</p>
@@ -969,43 +1097,43 @@
             </div>
         </section>
 
-        <section id="skills" class="layout-container card-frame">
+        <section id="skills" class="layout-container card-frame reveal-element">
             <h2 class="skills-section-title">My Skills</h2>
             <div class="skills-row-container">
                 <div class="skill-group-lane lane-frontend">
-                    <div class="skill-lane-title"><i class="fa-solid fa-desktop"></i> Frontend</div>
+                    <div class="skill-lane-title"><i class="fa-solid fa-desktop" aria-hidden="true"></i> Frontend</div>
                     <div class="pill-box"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
                 </div>
                 <div class="skill-group-lane lane-framework">
-                    <div class="skill-lane-title"><i class="fa-solid fa-cubes"></i> Framework</div>
+                    <div class="skill-lane-title"><i class="fa-solid fa-cubes" aria-hidden="true"></i> Framework</div>
                     <div class="pill-box"><span>Flutter</span></div>
                 </div>
                 <div class="skill-group-lane lane-backend">
-                    <div class="skill-lane-title"><i class="fa-solid fa-terminal"></i> Backend / Language</div>
+                    <div class="skill-lane-title"><i class="fa-solid fa-terminal" aria-hidden="true"></i> Backend / Language</div>
                     <div class="pill-box"><span>Python</span></div>
                 </div>
                 <div class="skill-group-lane lane-database">
-                    <div class="skill-lane-title"><i class="fa-solid fa-database"></i> Database</div>
+                    <div class="skill-lane-title"><i class="fa-solid fa-database" aria-hidden="true"></i> Database</div>
                     <div class="pill-box"><span>MySQL</span></div>
                 </div>
                 <div class="skill-group-lane lane-tools">
-                    <div class="skill-lane-title"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</div>
+                    <div class="skill-lane-title"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Tools</div>
                     <div class="pill-box"><span>VS Code</span><span>Git</span><span>GitHub</span></div>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="layout-container card-frame">
+        <section id="projects" class="layout-container card-frame reveal-element">
             <div class="projects-header-row">
                 <h2>Featured Projects</h2>
-                <a href="https://github.com/rabeeha06" target="_blank" class="git-explore-link">Explore more on GitHub <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i></a>
+                <a href="https://github.com/rabeeha06" target="_blank" rel="noopener" class="git-explore-link">Explore more on GitHub <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;" aria-hidden="true"></i></a>
             </div>
             
             <div class="projects-layout-grid">
                 
                 <div class="project-model-card">
                     <div class="project-art-stage art-raincheck">
-                        <img src="raincheck.png" alt="RainCheck Preview" class="project-display-img">
+                        <img src="raincheck.png" alt="RainCheck platform preview display dashboard panel" class="project-display-img" loading="lazy">
                     </div>
                     <h3>RainCheck</h3>
                     <p class="tagline-text">Weather Platform</p>
@@ -1014,14 +1142,14 @@
                         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Weather API</span><span>OpenStreetMap</span>
                     </div>
                     <div class="card-footer-links">
-                        <a href="https://raincheck-pi.vercel.app">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a>
-                        <a href="https://github.com/rabeeha06/raincheck" target="_blank">GitHub <i class="fa-brands fa-github"></i></a>
+                        <a href="https://raincheck-pi.vercel.app" target="_blank" rel="noopener">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;" aria-hidden="true"></i></a>
+                        <a href="https://github.com/rabeeha06/raincheck" target="_blank" rel="noopener">GitHub <i class="fa-brands fa-github" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <div class="project-model-card">
                     <div class="project-art-stage art-sunlo">
-                        <img src="sunlo (4).png" alt="SunLo Preview" class="project-display-img">
+                        <img src="sunlo (4).png" alt="SunLo tracking layout map interface dashboard" class="project-display-img" loading="lazy">
                     </div>
                     <h3>SunLo</h3>
                     <p class="tagline-text">Smart Bus Window Seat Finder</p>
@@ -1030,14 +1158,14 @@
                         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>SunCalc.js</span><span>OpenStreetMap</span>
                     </div>
                     <div class="card-footer-links">
-                        <a href="https://minions-six.vercel.app">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a>
-                        <a href="https://github.com/rabeeha06/minions">GitHub <i class="fa-brands fa-github"></i></a>
+                        <a href="https://minions-six.vercel.app" target="_blank" rel="noopener">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;" aria-hidden="true"></i></a>
+                        <a href="https://github.com/rabeeha06/minions" target="_blank" rel="noopener">GitHub <i class="fa-brands fa-github" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <div class="project-model-card">
                     <div class="project-art-stage art-wayable">
-                        <img src="wayable.png" alt="WayAble Preview" class="project-display-img">
+                        <img src="wayable.png" alt="WayAble Accessibility map preview routes" class="project-display-img" loading="lazy">
                     </div>
                     <h3>WayAble</h3>
                     <p class="tagline-text">Accessibility Explorer</p>
@@ -1046,14 +1174,14 @@
                         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Leaflet</span><span>Overpass API</span>
                     </div>
                     <div class="card-footer-links">
-                        <a href="https://wayable.vercel.app">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a>
-                        <a href="https://github.com/rabeeha06/wayable">GitHub <i class="fa-brands fa-github"></i></a>
+                        <a href="https://wayable.vercel.app" target="_blank" rel="noopener">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;" aria-hidden="true"></i></a>
+                        <a href="https://github.com/rabeeha06/wayable" target="_blank" rel="noopener">GitHub <i class="fa-brands fa-github" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <div class="project-model-card">
                     <div class="project-art-stage art-drywise">
-                        <img src="drywise.png" alt="DryWise Preview" class="project-display-img">
+                        <img src="drywise.png" alt="DryWise weather recommendations card diagnostic interface" class="project-display-img" loading="lazy">
                     </div>
                     <h3>DryWise</h3>
                     <p class="tagline-text">Weather-based Drying Assistant</p>
@@ -1062,25 +1190,25 @@
                         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Open-Meteo API</span>
                     </div>
                     <div class="card-footer-links">
-                        <a href="https://drywise.vercel.app">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a>
-                        <a href="https://github.com/rabeeha06/drywise">GitHub <i class="fa-brands fa-github"></i></a>
+                        <a href="https://drywise.vercel.app" target="_blank" rel="noopener">Live Demo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;" aria-hidden="true"></i></a>
+                        <a href="https://github.com/rabeeha06/drywise" target="_blank" rel="noopener">GitHub <i class="fa-brands fa-github" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section id="contact" class="layout-container card-frame footer-layout-card">
+        <section id="contact" class="layout-container footer-layout-card reveal-element">
             <div class="contact-left">
                 <span class="section-tag">Let's Work Together</span>
                 <h2>Have a project in mind?</h2>
                 <p>I'm always open to discussing new projects and opportunities. Let's create something amazing together!</p>
-                <a href="mailto:rabeehaam@gmail.com" class="contact-action-btn">Get In Touch <i class="fa-solid fa-arrow-up-right"></i></a>
+                <a href="mailto:rabeehaam@gmail.com" class="btn-filled">Get In Touch <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;" aria-hidden="true"></i></a>
             </div>
             
             <div class="contact-grid-panel">
-                <a href="mailto:rabeehaam@gmail.com" class="interactive-contact-item item-email">
-                    <div class="contact-icon-wrapper">
+                <a href="mailto:rabeehaam@gmail.com" class="interactive-contact-item item-email" aria-label="Send email directly to rabeehaam@gmail.com">
+                    <div class="contact-icon-wrapper" aria-hidden="true">
                         <i class="fa-regular fa-envelope"></i>
                     </div>
                     <div class="contact-item-details">
@@ -1090,7 +1218,7 @@
                 </a>
                 
                 <div class="interactive-contact-item item-location">
-                    <div class="contact-icon-wrapper">
+                    <div class="contact-icon-wrapper" aria-hidden="true">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
                     <div class="contact-item-details">
@@ -1099,8 +1227,8 @@
                     </div>
                 </div>
                 
-                <a href="https://github.com/rabeeha06" target="_blank" class="interactive-contact-item item-github">
-                    <div class="contact-icon-wrapper">
+                <a href="https://github.com/rabeeha06" target="_blank" rel="noopener" class="interactive-contact-item item-github" aria-label="Open secondary GitHub portfolio stream profile link">
+                    <div class="contact-icon-wrapper" aria-hidden="true">
                         <i class="fa-brands fa-github"></i>
                     </div>
                     <div class="contact-item-details">
@@ -1111,7 +1239,7 @@
             </div>
         </section>
 
-        <footer class="footer-sub-text" style="max-width: 1200px; margin: 0 auto;">
+        <footer class="footer-sub-text reveal-element" style="max-width: 1200px; margin: 0 auto;">
             <p>© 2026 Fathima Rabeeha M. All rights reserved.</p>
         </footer>
 
@@ -1119,27 +1247,113 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const targetSections = document.querySelectorAll("section");
-            const navItems = document.querySelectorAll("#navLinks a");
+            
+            // --- A. Sticky Navbar Surface Handling ---
+            const navbar = document.getElementById("mainNavbar");
+            const handleNavbarScroll = () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            };
+            window.addEventListener("scroll", handleNavbarScroll, { passive: true });
 
-            window.addEventListener("scroll", () => {
-                let currentElementId = "";
-                targetSections.forEach(section => {
-                    const sectionTop = section.offsetTop - 160;
-                    if (window.scrollY >= sectionTop) {
-                        currentElementId = section.getAttribute("id");
+            // --- B. Advanced Section Tracking (Active Navigation Underlines) ---
+            const sections = document.querySelectorAll("section[id]");
+            const navLinks = document.querySelectorAll(".nav-menu .nav-link");
+
+            const trackActiveSections = () => {
+                let scrollPosition = window.scrollY + 180;
+
+                sections.forEach(currentSection => {
+                    const sectionTop = currentSection.offsetTop;
+                    const sectionHeight = currentSection.offsetHeight;
+                    const sectionId = currentSection.getAttribute("id");
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove("active");
+                            if (link.getAttribute("href") === `#${sectionId}`) {
+                                link.classList.add("active");
+                            }
+                        });
                     }
                 });
+            };
+            window.addEventListener("scroll", trackActiveSections, { passive: true });
 
-                navItems.forEach(link => {
-                    link.classList.remove("active");
-                    if (link.getAttribute("href") === "#" + currentElementId) {
-                        link.classList.add("active");
+            // --- C. Staged Scroll Reveal Engine (Intersection Observer) ---
+            const revealOptions = {
+                threshold: 0.05,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("revealed");
+                        
+                        // Fire specialized count-up logic if the metrics panel has entered viewport
+                        if (entry.target.classList.contains("metrics-layout")) {
+                            triggerMetricsCounter(entry.target);
+                        }
+                        
+                        observer.unobserve(entry.target); // Run animations once only
                     }
+                });
+            }, revealOptions);
+
+            document.querySelectorAll(".reveal-element").forEach(element => {
+                revealObserver.observe(element);
+            });
+
+            // --- D. Premium Dynamic Fluid Counter Engine (Stat Panels) ---
+            const triggerMetricsCounter = (parentPanel) => {
+                const counterElements = parentPanel.querySelectorAll(".count-up");
+                
+                counterElements.forEach(counter => {
+                    const targetValue = parseInt(counter.getAttribute("data-target"), 10);
+                    let startingValue = 0;
+                    
+                    // Tailor speed parameters based on data size ranges
+                    const runtimeDuration = targetValue > 1000 ? 1500 : 1000; 
+                    const initialTime = performance.now();
+
+                    const runCountAnimation = (currentTime) => {
+                        const elapsedDuration = currentTime - initialTime;
+                        const progressRatio = Math.min(elapsedDuration / runtimeDuration, 1);
+                        
+                        // Premium Ease-Out Quintic Function for a smooth tail finish
+                        const easeOutProgress = 1 - Math.pow(1 - progressRatio, 5);
+                        
+                        const calculatedOutput = Math.floor(easeOutProgress * (targetValue - startingValue) + startingValue);
+                        counter.textContent = calculatedOutput;
+
+                        if (progressRatio < 1) {
+                            requestAnimationFrame(runCountAnimation);
+                        } else {
+                            counter.textContent = targetValue; // Hard-lock final target validation
+                        }
+                    };
+                    requestAnimationFrame(runCountAnimation);
+                });
+            };
+
+            // --- E. Micro-Interactions: Active Mechanical Button Press Animations ---
+            const clickInteractiveElements = document.querySelectorAll(".btn-filled, .btn-outline, .social-circle, .interactive-contact-item");
+            clickInteractiveElements.forEach(element => {
+                element.addEventListener("mousedown", () => {
+                    element.style.transform = "scale(0.97)";
+                });
+                element.addEventListener("mouseup", () => {
+                    element.style.transform = "";
+                });
+                element.addEventListener("mouseleave", () => {
+                    element.style.transform = "";
                 });
             });
         });
     </script>
 </body>
 </html>
-

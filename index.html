@@ -324,7 +324,6 @@
             height: 450px;
         }
 
-        /* Static Graphic Assets: Animations Removed for Quick Processing */
         .organic-blob-bg {
             position: absolute;
             width: 330px; height: 330px;
@@ -392,7 +391,7 @@
         }
 
         /* ==========================================================================
-           6. METRICS DISPLAY PANEL (RESTORED ACCURATE TEXTUAL QUANTIFIERS)
+           6. METRICS DISPLAY PANEL (WITH ACTIVE COUNT-UP CLASS ASSIGNMENTS)
            ========================================================================== */
         .metrics-layout {
             display: grid;
@@ -618,7 +617,7 @@
         .lane-tools .pill-box span:hover { border-color: var(--icon-tools); background: #FFFFFF; transform: translateY(-1px); }
 
         /* ==========================================================================
-           9. SELECTED PRODUCT WORK COLLECTIONS (INSTANT RENDER WORK CLUSTERS)
+           9. SELECTED PRODUCT WORK COLLECTIONS
            ========================================================================== */
         .projects-header-row {
             display: flex;
@@ -686,7 +685,6 @@
         .art-wayable { background: #ECEFEA; }
         .art-drywise { background: #F6F0FC; }
 
-        /* Zoom Properties Scrubbed Out Clean For Fast Performance Response */
         .project-display-img {
             width: 100%; height: 100%;
             object-fit: cover;
@@ -866,7 +864,6 @@
             color: var(--text-body);
         }
 
-        /* Container Card Elements Reveal Staging Properties */
         .reveal-element {
             opacity: 0;
             transform: translateY(35px);
@@ -980,33 +977,32 @@
             </div>
         </section>
 
-        <!-- Metrics Section Card Frame (With Restored Static Indicators) -->
         <section class="layout-container card-frame metrics-layout reveal-element">
             <div class="metric-block">
                 <div class="metric-icon-box m-1" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div class="metric-details">
-                    <h4>2024</h4>
+                    <h4 id="counterGrad">0</h4>
                     <p>Started Degree</p>
                 </div>
             </div>
             <div class="metric-block">
                 <div class="metric-icon-box m-2" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
                 <div class="metric-details">
-                    <h4>10+</h4>
+                    <h4 id="counterSkills">0+</h4>
                     <p>Technical Skills</p>
                 </div>
             </div>
             <div class="metric-block">
                 <div class="metric-icon-box m-3" aria-hidden="true"><i class="fa-solid fa-laptop-code"></i></div>
                 <div class="metric-details">
-                    <h4>5+</h4>
+                    <h4 id="counterProjects">0+</h4>
                     <p>Projects Built</p>
                 </div>
             </div>
             <div class="metric-block">
                 <div class="metric-icon-box m-4" aria-hidden="true"><i class="fa-solid fa-heart"></i></div>
                 <div class="metric-details">
-                    <h4>100%</h4>
+                    <h4 id="counterPassion">0%</h4>
                     <p>Learning Passion</p>
                 </div>
             </div>
@@ -1256,6 +1252,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("revealed");
+                        
+                        // Fire specialized count-up engine safely upon container intersection
+                        if (entry.target.classList.contains("metrics-layout")) {
+                            triggerMetricsCounter();
+                        }
                         observer.unobserve(entry.target); 
                     }
                 });
@@ -1265,7 +1266,46 @@
                 revealObserver.observe(element);
             });
 
-            // --- D. Micro-Interactions: Tactile Mechanical Button Press Animations ---
+            // --- D. Restored Fluid Metric Counter Engine ---
+            const triggerMetricsCounter = () => {
+                const config = [
+                    { id: 'counterGrad', target: 2024, suffix: '' },
+                    { id: 'counterSkills', target: 10, suffix: '+' },
+                    { id: 'counterProjects', target: 5, suffix: '+' },
+                    { id: 'counterPassion', target: 100, suffix: '%' }
+                ];
+
+                config.forEach(item => {
+                    const el = document.getElementById(item.id);
+                    if (!el) return;
+
+                    let start = 0;
+                    const duration = 1200; 
+                    const startTime = performance.now();
+
+                    if (item.target === 2024) start = 1800; // Start higher for graduation year for faster execution
+
+                    const runCounter = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Smooth quintic finish function
+                        const easeOutProgress = 1 - Math.pow(1 - progress, 5);
+                        const currentVal = Math.floor(easeOutProgress * (item.target - start) + start);
+                        
+                        el.textContent = currentVal + item.suffix;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(runCounter);
+                        } else {
+                            el.textContent = item.target + item.suffix; // Safe-lock values
+                        }
+                    };
+                    requestAnimationFrame(runCounter);
+                });
+            };
+
+            // --- E. Micro-Interactions: Tactile Button Press Effects ---
             const clickInteractiveElements = document.querySelectorAll(".btn-filled, .btn-outline, .social-circle, .interactive-contact-item");
             clickInteractiveElements.forEach(element => {
                 element.addEventListener("mousedown", () => {

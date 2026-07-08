@@ -172,9 +172,6 @@
             border-radius: var(--radius-main);
             box-shadow: var(--shadow-subtle);
             padding: 40px;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                        border-color 0.4s ease;
         }
 
         .btn-filled {
@@ -259,7 +256,7 @@
         }
 
         /* ==========================================================================
-           5. HERO CONTENT STAGING (INSTANT PORTRAIT CLUSTER)
+           5. HERO CONTENT STAGING (INSTANT PORTRAIT CLUSTER - NO TRANSITION DELAYS)
            ========================================================================== */
         .hero-layout {
             display: grid;
@@ -391,7 +388,7 @@
         }
 
         /* ==========================================================================
-           6. METRICS DISPLAY PANEL (WITH ACTIVE COUNT-UP CLASS ASSIGNMENTS)
+           6. METRICS DISPLAY PANEL (CLEAN IMMEDIATE INTERIOR BADGES)
            ========================================================================== */
         .metrics-layout {
             display: grid;
@@ -864,6 +861,7 @@
             color: var(--text-body);
         }
 
+        /* Core Section Frame Reveal Structural Logic */
         .reveal-element {
             opacity: 0;
             transform: translateY(35px);
@@ -977,7 +975,7 @@
             </div>
         </section>
 
-        <section class="layout-container card-frame metrics-layout reveal-element">
+        <section id="triggerCounterGrid" class="layout-container card-frame metrics-layout reveal-element">
             <div class="metric-block">
                 <div class="metric-icon-box m-1" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div class="metric-details">
@@ -1253,8 +1251,8 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add("revealed");
                         
-                        // Fire specialized count-up engine safely upon container intersection
-                        if (entry.target.classList.contains("metrics-layout")) {
+                        // Fire specialized counter validation based on descriptive attributes or target selectors
+                        if (entry.target.id === "triggerCounterGrid" || entry.target.classList.contains("metrics-layout")) {
                             triggerMetricsCounter();
                         }
                         observer.unobserve(entry.target); 
@@ -1266,7 +1264,7 @@
                 revealObserver.observe(element);
             });
 
-            // --- D. Restored Fluid Metric Counter Engine ---
+            // --- D. Fluid Metric Counter Engine ---
             const triggerMetricsCounter = () => {
                 const config = [
                     { id: 'counterGrad', target: 2024, suffix: '' },
@@ -1283,13 +1281,12 @@
                     const duration = 1200; 
                     const startTime = performance.now();
 
-                    if (item.target === 2024) start = 1800; // Start higher for graduation year for faster execution
+                    if (item.target === 2024) start = 1800; 
 
                     const runCounter = (currentTime) => {
                         const elapsed = currentTime - startTime;
                         const progress = Math.min(elapsed / duration, 1);
                         
-                        // Smooth quintic finish function
                         const easeOutProgress = 1 - Math.pow(1 - progress, 5);
                         const currentVal = Math.floor(easeOutProgress * (item.target - start) + start);
                         
@@ -1298,7 +1295,7 @@
                         if (progress < 1) {
                             requestAnimationFrame(runCounter);
                         } else {
-                            el.textContent = item.target + item.suffix; // Safe-lock values
+                            el.textContent = item.target + item.suffix; 
                         }
                     };
                     requestAnimationFrame(runCounter);
